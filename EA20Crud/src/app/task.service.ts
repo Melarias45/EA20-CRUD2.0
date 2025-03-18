@@ -32,5 +32,5 @@ export class TaskService {
 export interface Task {
   id?: string;
   name: string;
-  author: string
+  price: string;
 }

@@ -30,12 +30,12 @@ export class HomePage implements OnInit {
 
   tasks$!: Observable<Task[]>;
   newTaskName: string = '';
-  newAuthorName: string = '';
+  newPriceName: string = '';
 
   //almacenes temporales para las variables que se van a editarr
   editingTaskId: string | null = null;
   editedTaskName: string = '';
-  editedAuthorName: string = '';
+  editedPriceName: string = '';
 
   constructor(private taskService: TaskService, private router: Router, private authService: AuthService, private alertController: AlertController) { }
 
@@ -49,33 +49,33 @@ export class HomePage implements OnInit {
 
   addTask() {
     const name = this.newTaskName.trim();
-    const author = this.newAuthorName.trim();
+    const price = this.newPriceName.trim();
 
     if (!name) {
-      alert('El nombre de cancion es obligatorio');
+      alert('El nombre del producto es obligatorio');
       return;
     }
 
-    if (!author) {
-      alert('El nombre del autor es obligatorio');
+    if (!price) {
+      alert('El precio del producto es obligatorio');
       return;
     }
 
-    const newTask: Task = { name, author };
+    const newTask: Task = { name, price };
 
     this.taskService.addTask(newTask)
       .then(() => {
-        console.log('Cancion agregada');
+        console.log('Producto agregado');
         this.newTaskName = '';
-        this.newAuthorName = '';
+        this.newPriceName = '';
       })
-      .catch((err: unknown) => console.error('Error al agregar cancion:', err));
+      .catch((err: unknown) => console.error('Error al agregar el producto:', err));
   }
 
   deleteTask(id: string) {
     this.taskService.deleteTask(id)
-      .then(() => console.log('Cancion eliminada'))
-      .catch((err: unknown) => console.error('Error al eliminar la cancion:', err));
+      .then(() => console.log('Producto eliminado'))
+      .catch((err: unknown) => console.error('Error al eliminar el producto:', err));
   }
 
   //edicion de tareas inicia ;D
@@ -83,33 +83,33 @@ export class HomePage implements OnInit {
   startEdit(task: Task) {
     this.editingTaskId = task.id!;
     this.editedTaskName = task.name;
-    this.editedAuthorName = task.author;
+    this.editedPriceName = task.price;
   }
 
   //guardar los cambios de la edicion
 
   saveEdit(taskId: string) {
     const name = this.editedTaskName.trim();
-    const author = this.editedAuthorName.trim();
+    const price = this.editedPriceName.trim();
 
     if (!name) {
-      alert('El nombre de cancion es obligatorio');
+      alert('El nombre del producto es obligatorio');
       return;
     }
 
-    if (!author) {
-      alert('El nombre del autor es obligatorio');
+    if (!price) {
+      alert('El precio del producto es obligatorio');
       return;
     }
 
-    this.taskService.updateTask(taskId, { name, author })
+    this.taskService.updateTask(taskId, { name, price })
       .then(() => {
-        console.log('Cancion actualizada');
+        console.log('Producto actualizado');
         this.editingTaskId = null;    // Terminamos la edición
         this.editedTaskName = '';     // Limpiamos el campo de edición
-        this.editedAuthorName = '';
+        this.editedPriceName = '';
       })
-      .catch((err: unknown) => console.error('Error al actualizar cancion: ', err));
+      .catch((err: unknown) => console.error('Error al actualizar producto: ', err));
   }
 
   async onLogout() {

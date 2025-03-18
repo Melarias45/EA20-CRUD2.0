@@ -1,20 +1,102 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Lista de compras
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+  <div id="container" class="text-center">
+
+    <ion-label style="display: inline-block;
+    background-color: lightskyblue;
+    border: 2px solid mediumblue;
+    color: mediumblue;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.1);">Agrega un producto nuevo a tu lista</ion-label><br><br><br>
+
+    <!--Inicio del formulario-->
+    <form (submit)="addTask(); $event.preventDefault();">
+
+      <ion-label class="text-gray-400 text-lg font-semibold">Nombre del producto:</ion-label><br>
+      <input class="border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400" type="text"
+        [(ngModel)]="newTaskName" name="taskName" placeholder="Nombre//" required /><br>
+
+      <ion-label class="text-gray-400 text-lg font-semibold">Precio del producto:</ion-label><br>
+      <input class="border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400" type="text"
+        [(ngModel)]="newPriceName" name="PriceName" placeholder="Precio//" required /><br>
+
+      <button
+        class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+        type="submit">Agregar</button><br>
+
+    </form>
+    <br><br>
+    <ion-label style="display: inline-block;
+    background-color: lightskyblue;
+    border: 2px solid mediumblue;
+    color: mediumblue;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.1);">Productos agregados</ion-label><br>
+
+    <!-- Tabla de productos -->
+    <table>
+      <thead>
+        <tr>
+          <th class="text-blue-400 text-lg font-semibold">ID</th>
+          <th class="text-blue-400 text-lg font-semibold">Producto</th>
+          <th class="text-blue-400 text-lg font-semibold">Precio</th>
+          <th class="text-blue-400 text-lg font-semibold">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of tasks$ | async">
+          <td>{{ item.id }}</td>
+
+          <!-- Mostrar input si se está editando, si no, mostrar el nombre -->
+          <td *ngIf="editingTaskId === item.id; else viewMode">
+            <input class="border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              [(ngModel)]="editedTaskName" placeholder="Nuevo nombre" />
+            <input class="border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              [(ngModel)]="editedPriceName" placeholder="Nuevo precio" />
+          </td>
+
+          <ng-template #viewMode>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+          </ng-template>
+
+          <td>
+            <!-- Botón Editar / Guardar -->
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              style="margin: 5px;" *ngIf="editingTaskId !== item.id" (click)="startEdit(item)">Editar</button>
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              style="margin: 5px;" *ngIf="editingTaskId === item.id" (click)="saveEdit(item.id!)">Guardar</button>
+
+            <!-- Botón Eliminar -->
+            <button
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              [disabled]="!item.id" (click)="deleteTask(item.id!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="onLogout()"
+      class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
+      Cerrar sesion</button>
+
   </div>
 </ion-content>

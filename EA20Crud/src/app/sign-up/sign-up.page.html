@@ -1,13 +1,50 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>sign-up</ion-title>
+    <ion-title>SignUp</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">sign-up</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div id="content" class="text-center">
+    <ion-label style="display: inline-block;
+    margin: 30px;
+    background-color: lightskyblue;
+    border: 2px solid mediumblue;
+    color: mediumblue;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 255, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.1);">Registrate para comenzar tu lista de compras </ion-label>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+      <!-- Input de Email -->
+      <ion-label class="text-gray-400 text-lg font-semibold">Email</ion-label><br>
+
+      <input class="border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400" type="email"
+        name="email" id="email" required placeholder="email@gmail.com" [(ngModel)]="email" #emailModel="ngModel" email>
+      <div *ngIf="emailModel.invalid && emailModel.touched" style="color:red;">Please enter a valid email</div><br>
+
+      <!-- Input de Contraseña -->
+      <ion-label class="text-gray-400 text-lg font-semibold">Contraseña</ion-label><br>
+
+      <input name="password" id="password" [(ngModel)]="password" #passwordModel="ngModel"
+        class="border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400" type="password" required
+        minlength="6" placeholder=".........">
+      <div *ngIf="passwordModel.invalid && passwordModel.touched" style="color:red;">
+        La contraseña debe tener al menos 6 caracteres.
+      </div><br><br>
+
+      <!-- Botón de Registro -->
+      <button
+        class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+        type="submit" [disabled]="registerForm.invalid">Continuar</button>
+    </form>
+
+    <button (click)="onSignup()"
+      class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      expand="full">Ir a login</button>
+
+
+  </div>
 </ion-content>

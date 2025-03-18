@@ -51,24 +51,24 @@ table {
 
 th,
 td {
-    border: 2px solid #220053;
+    border: 2px solid #003e5f;
     /* Bordes grises (#888 es un gris medio), un poco gruesos (2px) */
     text-align: center;
     /* Centra el contenido en horizontal */
     padding: 8px;
     /* Espacio interno para que no se vea apretado */
-    background-color: #ede1fd;
-    color: #502a82;
+    background-color: #dcf3ff;
+    color: #0e409c;
     font-weight: bold;
 }
 
 input::placeholder {
-    color: #87CEEB;
+    color: dodgerblue;
     opacity: 1;
 }
 
 input {
-    color: #87CEEB;
+    color: dodgerblue;
     ;
     margin: 10px;
 }
