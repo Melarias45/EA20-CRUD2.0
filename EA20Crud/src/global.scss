@@ -40,3 +40,35 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+table {
+    width: 100%;
+    /* Ocupa el 100% del ancho disponible */
+    border-collapse: collapse;
+    /* Para que los bordes no se dupliquen */
+    margin: 10px;
+}
+
+th,
+td {
+    border: 2px solid #220053;
+    /* Bordes grises (#888 es un gris medio), un poco gruesos (2px) */
+    text-align: center;
+    /* Centra el contenido en horizontal */
+    padding: 8px;
+    /* Espacio interno para que no se vea apretado */
+    background-color: #ede1fd;
+    color: #502a82;
+    font-weight: bold;
+}
+
+input::placeholder {
+    color: #87CEEB;
+    opacity: 1;
+}
+
+input {
+    color: #87CEEB;
+    ;
+    margin: 10px;
+}
